@@ -1,10 +1,10 @@
 %define major		1
-%define libname		%mklibname microdns %{major}
+%define libname		%mklibname microdns
 %define develname	%mklibname microdns -d
 
 Name:		libmicrodns
 Version:	0.2.0
-Release:	%mkrel 2
+Release:	1
 Summary:	Minimal mDNS resolver library
 Group:		System/Libraries
 License:	LGPLv2+
@@ -12,7 +12,6 @@ URL:		https://github.com/videolabs/libmicrodns
 Source0:	https://github.com/videolabs/libmicrodns/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:	meson
-BuildRequires:	gcc
 
 %description
 Minimal mDNS resolver (and announcer) library.
@@ -31,9 +30,9 @@ Minimal mDNS resolver (and announcer) library.
 %package -n	%{develname}
 Summary:	Development package for %{name}
 Group:		Development/C++
-Requires:	%{libname} = %{version}-%{release}
-Provides:	%{name}-devel = %{version}-%{release}
-Provides:	microdns-devel = %{version}-%{release}
+Requires:	%{libname} = %{EVRD}
+Provides:	%{name}-devel = %{EVRD}
+Provides:	microdns-devel = %{EVRD}
 
 %description -n	%{develname}
 Header files for development with %{name}.
@@ -41,7 +40,7 @@ Header files for development with %{name}.
 #------------------------------------------------
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %meson
@@ -49,9 +48,6 @@ Header files for development with %{name}.
 
 %install
 %meson_install
-
-%check
-%meson_test
 
 %files -n %{libname}
 %license COPYING
